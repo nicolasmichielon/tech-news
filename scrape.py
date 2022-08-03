@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 links = []
 subtexts = []
 
+
+# Grab the links and subtexts from the Hacker News websit, going from page 1 to page 10
 for p in range(1, 10):
     res = requests.get(f'https://news.ycombinator.com/news?p={p}')
     soup = BeautifulSoup(res.text, 'html.parser')
@@ -12,11 +14,14 @@ for p in range(1, 10):
     links.extend(link)
     subtexts.extend(subtext)
 
+# Sort stories by votes
+
 
 def sort_stories_by_votes(hnlist):
     return sorted(hnlist, key=lambda k: k['votes'], reverse=True)
 
 
+# Creates a list of dictionaries with the title, link and votes of each story that has 100 or more likes
 def create_custom_hn(links, subtext):
     hn = []
     for idx, item in enumerate(links):
@@ -30,4 +35,5 @@ def create_custom_hn(links, subtext):
     return sort_stories_by_votes(hn)
 
 
+# Stores the list of dictionaries
 news = create_custom_hn(links, subtexts)

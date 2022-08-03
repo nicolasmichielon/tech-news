@@ -32,9 +32,6 @@
                     <li class="nav-item">
                         <a href="/#questions" class="nav-link">Questions</a>
                     </li>
-                    <li class="nav-item mx-2">
-                        <h3><a href="/profile"><i class="bi bi-person-circle text-light"></i></a></h5>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -43,22 +40,20 @@
     <!-- News -->
     <section id="news" class="p-5 bg-warning">
         <div class="container">
-            <h2 class="text-center text-dark">“If you don't like the news, go out and make some of your own.”</h2>
+            <h2 class="text-center ">Your favorite ones:</h2>
             <p class="lead text-center  mb-5">
-                ― Wes Nisker
+                ― TechNews
             </p>
             <div class="row g-4" data-masonry='{"percentPosition": true }'>
-                {% for n in news %}
+                {% for n in favorites %}
                 <div class="col-md-6 col-lg-4">
-                    <div class="card bg-dark mb-4 border-dark text-light">
+                    <div class="card bg-light mb-4 border-dark">
                         <div class="card-body text-center">
-                            <h3 id="tittle" class="card-title mb-3">{{n.title}}</h3>
-                            <p id="likes"><i class="bi bi-star-fill"></i> {{n.votes}}</p>
+                            <h3 class="card-title mb-3">{{n.title}}</h3>
                             <p class="card-text">
-                                <a href="{{n.link}}" class="btn btn-dark border-warning text-warning">Read</a>
-                                <a href="" class="btn btn-dark border-warning text-warning"><i
-                                        class="bi bi-heart pe-1"></i>Favorite</a>
+                                <a href="{{n.link}}" class="text-dark">Read</a>
                             </p>
+                            <p><i class="bi bi-star-fill"></i> {{n.votes}}</p>
                         </div>
                     </div>
                 </div>
