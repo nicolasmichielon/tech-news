@@ -49,21 +49,25 @@
             </p>
             <div class="row g-4" data-masonry='{"percentPosition": true }'>
                 {% for n in news %}
+
                 <div class="col-md-6 col-lg-4">
                     <div class="card bg-dark mb-4 border-dark text-light">
                         <div class="card-body text-center">
-                            <h3 id="tittle" class="card-title mb-3">{{n.title}}</h3>
-                            <p id="likes"><i class="bi bi-star-fill"></i> {{n.votes}}</p>
-                            <p class="card-text">
-                                <a href="{{n.link}}" class="btn btn-dark border-warning text-warning">Read</a>
-                                <a href="" class="btn btn-dark border-warning text-warning"><i
-                                        class="bi bi-heart pe-1"></i>Favorite</a>
-                            </p>
+                            <form method="POST">
+                                <h3 id="tittle" class="card-title mb-3">{{n.title}}</h3>
+                                <p id="likes"><i class="bi bi-star-fill"></i> {{n.votes}}</p>
+                                <p class="card-text">
+                                    <a href="{{n.link}}" class="btn btn-dark border-warning text-warning">Read</a>
+                                    <button name="favorite" value="{{n.title}},{{n.link}},{{n.votes}}" type="submit"
+                                        class="btn btn-dark border-warning text-warning"><i
+                                            class="bi bi-heart pe-1"></i>Favorite</button>
+                                </p>
+                            </form>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
 
+                {% endfor %}
             </div>
         </div>
     </section>
