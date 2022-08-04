@@ -2,13 +2,11 @@ from flask import Flask, render_template, request, session, redirect, url_for, g
 from numpy import save
 # Imports the list of dictionaries with news info
 from scrape import news
-from db import grab_user_data, register_user, grab_user_by_id, save_post, grab_user_favorites
+from db import grab_user_data, register_user, grab_user_by_id, save_post, grab_user_favorites, delete_post
 import requests
 
 app = Flask(__name__)
 app.secret_key = 'verysecretkey'
-
-favorites = []
 
 
 @app.before_request
@@ -30,9 +28,8 @@ def news_page():
         if not g.user:
             return redirect(url_for('login'))
         post_to_save = request.form['favorite']
-        print(post_to_save)
         save_post(post_to_save, g.user[0])
-        return redirect(url_for("profile"))
+        return ('', 204)
     return render_template("news.html", news=news)
 
 
@@ -58,10 +55,20 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/profile")
+@app.route("/profile", methods=["GET", "POST"])
 def profile():
+    if request.method == 'POST':
+        post_to_delete = request.form['delete']
+        delete_post(post_to_delete, g.user[0])
+        return redirect(url_for('profile'))
     if not g.user:
         return redirect(url_for('login'))
     favorites = grab_user_favorites(session['user_id'])
     print(favorites)
     return render_template("profile.html", favorites=favorites)
+
+
+@app.route("/logout")
+def logout():
+    session.pop('user_id', None)
+    return redirect('login')

@@ -60,8 +60,9 @@ def save_post(post, user_id):
     conn = sqlite3.connect('users.sqlite')
     cursor = conn.cursor()
     post = post.split(',')
-    query = f"""INSERT INTO favorites (user_id, title, link, votes) VALUES ({user_id}, '{post[0]}', '{post[1]}', '{post[2]}')"""
-    cursor.execute(query)
+    query = f"""INSERT INTO favorites (user_id, title, link, votes) VALUES (?, ?, ?, ?)"""
+    cursor.execute(
+        query, (f'{user_id}', f'{post[0]}', f'{post[1]}', f'{post[2]}'))
     conn.commit()
     conn.close()
     return
@@ -74,3 +75,13 @@ def grab_user_favorites(user_id):
     favorites = cursor.execute(query).fetchall()
     conn.close()
     return favorites
+
+
+def delete_post(post, user_id):
+    conn = sqlite3.connect('users.sqlite')
+    cursor = conn.cursor()
+    query = """DELETE FROM favorites WHERE title = ? AND user_id = ?"""
+    cursor.execute(query, (f'{post}', f'{user_id}'))
+    conn.commit()
+    conn.close()
+    return

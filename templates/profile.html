@@ -32,6 +32,9 @@
                     <li class="nav-item">
                         <a href="/#questions" class="nav-link">Questions</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link">Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -42,24 +45,34 @@
         <div class="container">
             <h2 class="text-center ">Welcome {{g.user[1]}}</h2>
             <p class="lead text-center  mb-5">
-                ― TechNews
+                Your favorites stories are here
             </p>
             <div class="row g-4" data-masonry='{"percentPosition": true }'>
                 {% for i in favorites %}
                 <div class="col-md-6 col-lg-4">
-                    <div class="card bg-light mb-4 border-dark">
+                    <div class="card bg-dark mb-4 border-dark text-light">
                         <div class="card-body text-center">
-                            <h3 class="card-title mb-3">{{i[0]}}</h3>
-                            <p class="card-text">
-                                <a href="{{i[1]}}" class="text-dark">Read</a>
-                            </p>
-                            <p><i class="bi bi-star-fill"></i> {{i[2]}}</p>
+                            <form method="post">
+                                <h3 id="tittle" class="card-title mb-3">{{i[0]}}</h3>
+                                <p class="card-text">
+                                    <a href="{{i[1]}}" class="btn btn-dark border-warning text-warning">Read</a>
+                                    <button name="delete" value="{{i[0]}}" type="submit"
+                                        class="btn btn-dark border-warning text-warning">Remove</button>
+                                </p>
+                            </form>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
 
             </div>
+        </div>
+    </section>
+
+    <!-- Invite to read more -->
+    <section class="bg-warning text-dark pb-5">
+        <div class="align-center text-center">
+            <a class="btn btn-dark btn-lg" href="/news">Discover more TechNews</a>
         </div>
     </section>
 
