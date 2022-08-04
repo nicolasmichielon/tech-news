@@ -58,7 +58,8 @@
                                 <p id="likes"><i class="bi bi-star-fill"></i> {{n.votes}}</p>
                                 <p class="card-text">
                                     <a href="{{n.link}}" class="btn btn-dark border-warning text-warning">Read</a>
-                                    <button name="favorite" value="{{n.title}},{{n.link}},{{n.votes}}" type="submit"
+                                    <button data-bs-toggle="modal" data-bs-target="#modalFavorite" name="favorite"
+                                        value="{{n.title}},{{n.link}},{{n.votes}}" type="submit"
                                         class="btn btn-dark border-warning text-warning"><i
                                             class="bi bi-heart pe-1"></i>Favorite</button>
                                 </p>
@@ -71,6 +72,20 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalFavorite" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header text-light mx-auto">
+                    <h5 class="modal-title" id="exampleModalLabel">You saved this post!</h5>
+                </div>
+                <div class="modal-footer mx-auto">
+                    <button class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="p-5 bg-dark text-white text-center position-relative">

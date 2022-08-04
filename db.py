@@ -15,7 +15,6 @@ cursor.execute(sql_query)
 sql_query2 = """ CREATE TABLE IF NOT EXISTS favorites (
     title text NOT NULL,
     link text NOT NULL,
-    votes INTEGER NOT NULL,
     user_id INTEGER,
     FOREIGN KEY(user_id) REFERENCES user (user_id)
 )"""
@@ -60,9 +59,9 @@ def save_post(post, user_id):
     conn = sqlite3.connect('users.sqlite')
     cursor = conn.cursor()
     post = post.split(',')
-    query = f"""INSERT INTO favorites (user_id, title, link, votes) VALUES (?, ?, ?, ?)"""
+    query = f"""INSERT INTO favorites (user_id, title, link) VALUES (?, ?, ?)"""
     cursor.execute(
-        query, (f'{user_id}', f'{post[0]}', f'{post[1]}', f'{post[2]}'))
+        query, (f'{user_id}', f'{post[0]}', f'{post[1]}'))
     conn.commit()
     conn.close()
     return
@@ -71,7 +70,7 @@ def save_post(post, user_id):
 def grab_user_favorites(user_id):
     conn = sqlite3.connect('users.sqlite')
     cursor = conn.cursor()
-    query = f"""SELECT title, link, votes FROM favorites WHERE user_id = {user_id}"""
+    query = f"""SELECT title, link FROM favorites WHERE user_id = {user_id}"""
     favorites = cursor.execute(query).fetchall()
     conn.close()
     return favorites
