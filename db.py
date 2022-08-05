@@ -23,13 +23,13 @@ cursor.close()
 # Returns user data if username and password are correct
 
 
-def grab_user_data(username, password):
+def grab_user_pass(username):
     conn = sqlite3.connect('users.sqlite')
     cursor = conn.cursor()
     user = cursor.execute(
         f"SELECT user_id, password FROM user WHERE username=?", (f'{username}',))
     user = user.fetchone()
-    if user and password == user[1]:
+    if user:
         return user
     return
 
