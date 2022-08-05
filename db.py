@@ -29,7 +29,6 @@ def grab_user_data(username, password):
     user = cursor.execute(
         f"SELECT user_id, password FROM user WHERE username='{username}'")
     user = user.fetchone()
-    print(user)
     if user and password == user[1]:
         return user
     return
@@ -41,7 +40,6 @@ def register_user(username, password):
     query = f"""INSERT INTO user (username, password) VALUES ('{username}', '{password}')"""
     cursor.execute(query)
     conn.commit()
-    print(f"Usuario {username} de senha {password} foi cadastrado")
     conn.close()
     return
 
@@ -84,3 +82,14 @@ def delete_post(post, user_id):
     conn.commit()
     conn.close()
     return
+
+
+def check_if_username_already_exists(username):
+    conn = sqlite3.connect('users.sqlite')
+    cursor = conn.cursor()
+    user = cursor.execute(
+        f"SELECT user_id FROM user WHERE username='{username}'")
+    user = user.fetchall()
+    if len(user) == 0:
+        return False
+    return True

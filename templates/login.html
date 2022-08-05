@@ -62,6 +62,11 @@
                                     <input type="password" name="password" class="form-control form-control-lg"
                                         placeholder="Enter your password" />
                                 </div>
+                                {% if fail==True: %}
+                                <p class="text-center">
+                                    Login Failed: Incorrect username or password.
+                                </p>
+                                {% endif %}
                                 <div class="text-center text-lg-start mt-4 pt-2">
                                     <button type="submit" class="btn btn-dark btn-lg d-grid gap-2 col-6 mx-auto"
                                         style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>

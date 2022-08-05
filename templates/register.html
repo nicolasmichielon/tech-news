@@ -62,14 +62,23 @@
                                     <input name="password" type="password" class="form-control form-control-lg"
                                         placeholder="Enter password" />
                                 </div>
+                                {% if fail==True: %}
+                                <p class="text-center">
+                                    Your username needs to have at least 4 characters.<br>
+                                    Your password needs to have at least 6 characters.
+                                </p>
+                                {% endif %}
+                                {% if user_already_exists==True: %}
+                                <p class="text-center">
+                                    Register Failed: This username already exists.
+                                </p>
+                                {% endif %}
                                 <div class="text-center text-lg-start mt-4 pt-2">
                                     <button data-bs-toggle="modal" data-bs-target="#modalRegistered" type="submit"
                                         class="btn btn-dark btn-lg d-grid gap-2 col-6 mx-auto"
                                         style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
                                     <p class="text-center m-1">Or <a class="text-dark" href="/login">Login</a></p>
                                 </div>
-
-
                             </form>
                         </div>
                     </div>
@@ -77,15 +86,18 @@
             </section>
     </section>
 
-    <!-- Modal -->
+    <!-- Modal Success -->
     <div class="modal fade" id="modalRegistered" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content bg-dark">
                 <div class="modal-header text-light mx-auto">
-                    <h5 class="modal-title" id="exampleModalLabel">Registered sucessfully</h5>!</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Registered sucessfully!
+                    </h5>
                 </div>
                 <div class="modal-body mx-auto">
-                    <button action="/login" class="btn btn-warning" data-bs-dismiss="modal">Login</button>
+                    <a href="/login" class="btn btn-warning">Login</a>
+                    <a href="/" class="btn btn-warning">Home</a>
                 </div>
             </div>
         </div>

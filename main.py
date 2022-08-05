@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for, g
 # Imports the list of dictionaries with news info
-from db import grab_user_data, register_user, grab_user_by_id, save_post, grab_user_favorites, delete_post
+from db import grab_user_data, register_user, grab_user_by_id, save_post, grab_user_favorites, delete_post, check_if_username_already_exists
 import scrape
 import importlib
 
@@ -48,7 +48,7 @@ def login():
         if user_data:
             session['user_id'] = user_data[0]
             return redirect(url_for('profile'))
-        return redirect(url_for('login'))
+        return render_template("login.html", fail=True)
     return render_template("login.html")
 
 
@@ -56,7 +56,14 @@ def login():
 def register():
     if request.method == 'POST':
         session.pop('user_id', None)
-        register_user(request.form['username'], request.form['password'])
+        username = request.form['username']
+        password = request.form['password']
+        if check_if_username_already_exists(username):
+            return render_template("register.html", user_already_exists=True)
+        if len(username) >= 4 and len(password) >= 6:
+            register_user(username, password)
+        else:
+            return render_template("register.html", fail=True)
         return ('', 204)
     return render_template("register.html")
 
@@ -70,7 +77,6 @@ def profile():
     if not g.user:
         return redirect(url_for('login'))
     favorites = grab_user_favorites(session['user_id'])
-    print(favorites)
     return render_template("profile.html", favorites=favorites)
 
 
