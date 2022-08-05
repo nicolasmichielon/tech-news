@@ -27,7 +27,7 @@ def grab_user_data(username, password):
     conn = sqlite3.connect('users.sqlite')
     cursor = conn.cursor()
     user = cursor.execute(
-        f"SELECT user_id, password FROM user WHERE username='{username}'")
+        f"SELECT user_id, password FROM user WHERE username=?", (f'{username}',))
     user = user.fetchone()
     if user and password == user[1]:
         return user
@@ -37,8 +37,8 @@ def grab_user_data(username, password):
 def register_user(username, password):
     conn = sqlite3.connect('users.sqlite')
     cursor = conn.cursor()
-    query = f"""INSERT INTO user (username, password) VALUES ('{username}', '{password}')"""
-    cursor.execute(query)
+    query = f"""INSERT INTO user (username, password) VALUES (?, ?)"""
+    cursor.execute(query, (f'{username}', f'{password}'))
     conn.commit()
     conn.close()
     return
@@ -47,8 +47,8 @@ def register_user(username, password):
 def grab_user_by_id(id):
     conn = sqlite3.connect('users.sqlite')
     cursor = conn.cursor()
-    query = f"""SELECT * FROM user WHERE user_id = {id} """
-    user = cursor.execute(query).fetchone()
+    query = f"""SELECT * FROM user WHERE user_id = ?"""
+    user = cursor.execute(query, (f'{id}',)).fetchone()
     conn.close()
     return user
 
@@ -68,8 +68,8 @@ def save_post(post, user_id):
 def grab_user_favorites(user_id):
     conn = sqlite3.connect('users.sqlite')
     cursor = conn.cursor()
-    query = f"""SELECT title, link FROM favorites WHERE user_id = {user_id}"""
-    favorites = cursor.execute(query).fetchall()
+    query = f"""SELECT title, link FROM favorites WHERE user_id = ?"""
+    favorites = cursor.execute(query, (f'{user_id}',)).fetchall()
     conn.close()
     return favorites
 
@@ -87,8 +87,8 @@ def delete_post(post, user_id):
 def check_if_username_already_exists(username):
     conn = sqlite3.connect('users.sqlite')
     cursor = conn.cursor()
-    user = cursor.execute(
-        f"SELECT user_id FROM user WHERE username='{username}'")
+    query = """SELECT user_id FROM user WHERE username=?"""
+    user = cursor.execute(query, (f'{username}',))
     user = user.fetchall()
     if len(user) == 0:
         return False
