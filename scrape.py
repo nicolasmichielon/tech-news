@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 links = []
 subtexts = []
 
-# Grab the links and subtexts from the Hacker News websit, going from page 1 to page 10
-for p in range(1, 10):
+# Grab the links and subtexts from the Hacker News websit, going from page 1 to page 20
+for p in range(1, 20):
     res = requests.get(f'https://news.ycombinator.com/news?p={p}')
     soup = BeautifulSoup(res.text, 'html.parser')
     link = soup.select('.titlelink')
