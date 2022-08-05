@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for, g
-from numpy import save
 # Imports the list of dictionaries with news info
-from scrape import news
 from db import grab_user_data, register_user, grab_user_by_id, save_post, grab_user_favorites, delete_post
-import requests
+import scrape
+import importlib
 
 app = Flask(__name__)
 app.secret_key = 'verysecretkey'
@@ -30,7 +29,13 @@ def news_page():
         post_to_save = request.form['favorite']
         save_post(post_to_save, g.user[0])
         return ('', 204)
-    return render_template("news.html", news=news)
+    return render_template("news.html", news=scrape.news)
+
+
+@app.route("/reload")
+def reload():
+    importlib.reload(scrape)
+    return redirect(url_for("news_page"))
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -52,6 +57,7 @@ def register():
     if request.method == 'POST':
         session.pop('user_id', None)
         register_user(request.form['username'], request.form['password'])
+        return ('', 204)
     return render_template("register.html")
 
 

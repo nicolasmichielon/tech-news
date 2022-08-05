@@ -9,3 +9,7 @@ body::before {
         width: 50%;
     }
 }
+
+#loading {
+    visibility: hidden;
+}

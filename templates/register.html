@@ -32,6 +32,9 @@
                     <li class="nav-item">
                         <a href="/#questions" class="nav-link">Questions</a>
                     </li>
+                    <li class="nav-item mx-2">
+                        <h3><a href="/profile"><i class="bi bi-person-circle text-light"></i></a></h5>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -60,7 +63,8 @@
                                         placeholder="Enter password" />
                                 </div>
                                 <div class="text-center text-lg-start mt-4 pt-2">
-                                    <button type="submit" class="btn btn-dark btn-lg d-grid gap-2 col-6 mx-auto"
+                                    <button data-bs-toggle="modal" data-bs-target="#modalRegistered" type="submit"
+                                        class="btn btn-dark btn-lg d-grid gap-2 col-6 mx-auto"
                                         style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
                                     <p class="text-center m-1">Or <a class="text-dark" href="/login">Login</a></p>
                                 </div>
@@ -72,6 +76,20 @@
                 </div>
             </section>
     </section>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalRegistered" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header text-light mx-auto">
+                    <h5 class="modal-title" id="exampleModalLabel">Registered sucessfully</h5>!</h5>
+                </div>
+                <div class="modal-body mx-auto">
+                    <button action="/login" class="btn btn-warning" data-bs-dismiss="modal">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="p-5 bg-dark text-white text-center position-relative">

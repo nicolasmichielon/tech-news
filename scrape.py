@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 links = []
 subtexts = []
 
-
 # Grab the links and subtexts from the Hacker News websit, going from page 1 to page 10
 for p in range(1, 10):
     res = requests.get(f'https://news.ycombinator.com/news?p={p}')

@@ -42,12 +42,20 @@
 
     <!-- News -->
     <section id="news" class="p-5 bg-warning">
+        <a href="/reload" class="btn" onclick="loading();">
+            <h2><i class="bi bi-arrow-clockwise"></i></h1>
+        </a>
         <div class="container">
             <h2 class="text-center text-dark">“If you don't like the news, go out and make some of your own.”</h2>
             <p class="lead text-center  mb-5">
                 ― Wes Nisker
             </p>
-            <div class="row g-4" data-masonry='{"percentPosition": true }'>
+            <div class="text-center">
+                <div id="loading" class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div id="content" class="row g-4" data-masonry='{"percentPosition": true }'>
                 {% for n in news %}
 
                 <div class="col-md-6 col-lg-4">
@@ -78,7 +86,7 @@
         <div class="modal-dialog">
             <div class="modal-content bg-dark">
                 <div class="modal-header text-light mx-auto">
-                    <h5 class="modal-title" id="exampleModalLabel">You saved this post!</h5>
+                    <h5 class="modal-title">You saved this post!</h5>
                 </div>
                 <div class="modal-footer mx-auto">
                     <button class="btn btn-warning" data-bs-dismiss="modal">Close</button>
@@ -105,6 +113,14 @@
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
         async></script>
+    <script type="text/javascript">
+        function loading() {
+            var content = document.getElementById('content');
+            content.style.visibility = 'hidden';
+            var loading = document.getElementById('loading');
+            loading.style.visibility = 'visible';
+        }
+    </script>
 </body>
 
 </html>
