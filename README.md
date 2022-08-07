@@ -1,6 +1,6 @@
 # TechNews
 
-A Website that filters the news with more than 100 votes from the Hacker News site using web scraping.
+A Website that filters the news with more than 100 votes from the Hacker News site using web scraping.<br>
 You can also create an account and save your favorite ones.
 
 ### 📋 Prerequisites
@@ -18,4 +18,4 @@ pip install requirements.txt
 * [BeautifulSoup4](https://www.crummy.com/software/BeautifulSoup/) - Web Scraping Python Library
 
 ---
-⌨️ with ❤️ by [Nícolas Michielon](https://github.com/nicolasmichielon) 😊
+Made By [Nícolas Michielon](https://github.com/nicolasmichielon) 😊
