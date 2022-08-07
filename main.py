@@ -35,7 +35,7 @@ def news_page():
 
 
 @app.route("/reload")
-def reload():
+def reload_news():
     reload(scrape)
     return redirect(url_for("news_page"))
 
